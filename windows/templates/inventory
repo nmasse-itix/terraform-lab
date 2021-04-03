@@ -1,0 +1,18 @@
+[windows]
+%{for host, ip in windows_machines~}
+${host}.${network_domain} ansible_host=${ip} 
+%{endfor~}
+
+[windows:vars]
+ansible_user=vagrant
+ansible_password=vagrant
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+
+# HTTP
+ansible_winrm_scheme=http
+ansible_port=5985
+
+# HTTPS
+#ansible_winrm_scheme=https
+#ansible_port=5986

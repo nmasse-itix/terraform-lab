@@ -1,0 +1,11 @@
+- name: Sample playbook
+  hosts: all
+  gather_facts: no
+  tasks:
+  - name: Wait for the WinRM port to open
+    wait_for:
+      port: '{{ ansible_port }}'
+      host: '{{ ansible_host }}'
+    delegate_to: localhost
+
+  - win_ping:
