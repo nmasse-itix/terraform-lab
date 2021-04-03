@@ -35,6 +35,8 @@ Fetch the Qemu Guest tools.
 curl -Lo virtio-win.iso https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
 ```
 
+Build the Windows image using Packer.
+
 ```sh
 sudo /usr/bin/packer build windows_10.json
 ```
