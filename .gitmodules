@@ -1,0 +1,3 @@
+[submodule "windows/packer/packer-windows"]
+	path = windows/packer/packer-windows
+	url = https://github.com/StefanScherer/packer-windows.git
