@@ -30,3 +30,7 @@ resource "libvirt_domain" "win_machine" {
     wait_for_lease = true
   }
 }
+
+locals {
+  windows_machines = { for i in libvirt_domain.win_machine : i.name => i.network_interface.0.addresses[0] }
+}

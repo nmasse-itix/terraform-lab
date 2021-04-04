@@ -16,15 +16,11 @@ terraform {
   }
 }
 
-locals {
-  windows_machines = { for i in libvirt_domain.win_machine : i.name => i.network_interface.0.addresses[0] }
-}
-
 output "machines" {
   value = local.windows_machines
 }
 
-resource "local_file" "ansible-inventory" {
+resource "local_file" "ansible_inventory" {
   content         = templatefile("${path.module}/templates/inventory", { windows_machines = local.windows_machines, network_domain = var.network_domain })
   filename        = "ansible/inventory"
   file_permission = "0644"
