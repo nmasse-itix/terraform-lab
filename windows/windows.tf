@@ -7,22 +7,22 @@ resource "libvirt_volume" "win_disk" {
 }
 
 resource "libvirt_domain" "win_machine" {
-  count     = var.windows_machine_count
-  name      = format(var.windows_hostname_format, count.index + 1)
-  vcpu      = "2"
-  memory    = "2048"
+  count  = var.windows_machine_count
+  name   = format(var.windows_hostname_format, count.index + 1)
+  vcpu   = "2"
+  memory = "2048"
 
   cpu = {
     mode = "host-passthrough"
   }
-  
+
   disk {
     volume_id = element(libvirt_volume.win_disk.*.id, count.index)
   }
 
   network_interface {
     network_id = libvirt_network.lab_net.id
-    hostname = format(var.windows_hostname_format, count.index + 1)
+    hostname   = format(var.windows_hostname_format, count.index + 1)
 
     # When creating the domain resource, wait until the network interface gets
     # a DHCP lease from libvirt, so that the computed IP addresses will be

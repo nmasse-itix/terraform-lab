@@ -34,7 +34,7 @@ resource "libvirt_domain" "centos_machine" {
 
   network_interface {
     network_id = libvirt_network.lab_net.id
-    hostname = format(var.centos_hostname_format, count.index + 1)
+    hostname   = format(var.centos_hostname_format, count.index + 1)
 
     # When creating the domain resource, wait until the network interface gets
     # a DHCP lease from libvirt, so that the computed IP addresses will be

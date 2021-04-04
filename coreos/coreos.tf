@@ -11,8 +11,8 @@ data "ignition_config" "startup" {
 }
 
 data "ignition_file" "hostname" {
-  path       = "/etc/hostname"
-  mode       = 420 # decimal 0644
+  path = "/etc/hostname"
+  mode = 420 # decimal 0644
 
   content {
     content = format(var.coreos_hostname_format, count.index + 1)
@@ -46,12 +46,12 @@ resource "libvirt_ignition" "ignition" {
 }
 
 resource "libvirt_domain" "coreos_machine" {
-  count     = var.coreos_machine_count
-  name      = format(var.coreos_hostname_format, count.index + 1)
-  vcpu      = "1"
-  memory    = "1024"
+  count           = var.coreos_machine_count
+  name            = format(var.coreos_hostname_format, count.index + 1)
+  vcpu            = "1"
+  memory          = "1024"
   coreos_ignition = element(libvirt_ignition.ignition.*.id, count.index)
-  autostart = true
+  autostart       = true
 
   disk {
     volume_id = element(libvirt_volume.coreos_disk.*.id, count.index)
@@ -65,7 +65,7 @@ resource "libvirt_domain" "coreos_machine" {
 
   network_interface {
     network_id = libvirt_network.lab_net.id
-    hostname = format(var.coreos_hostname_format, count.index + 1)
+    hostname   = format(var.coreos_hostname_format, count.index + 1)
 
     # When creating the domain resource, wait until the network interface gets
     # a DHCP lease from libvirt, so that the computed IP addresses will be
