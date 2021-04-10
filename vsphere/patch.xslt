@@ -24,7 +24,7 @@
       <xsl:for-each select="disk">
         <disk>
           <xsl:apply-templates select="@*|node()[not(ancestor-or-self::target | ancestor-or-self::wwn)]"/>
-          <target bus="sata" rotation_rate="1">
+          <target bus="sata">
             <xsl:attribute name="rotation_rate">
               <!-- Disk is an SSD -->
               <xsl:value-of select="'1'" />
