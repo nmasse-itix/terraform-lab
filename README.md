@@ -18,7 +18,7 @@ gpgcheck=1
 gpgkey=https://rpm.releases.hashicorp.com/gpg
 EOF
 sudo dnf config-manager --add-repo hashicorp.repo
-sudo dnf -y install packer
+sudo dnf -y install terraform
 ```
 
 Install the terraform provider for libvirt.
@@ -57,4 +57,3 @@ Install ansible.
 sudo dnf -y install ansible
 sudo pip3 install pywinrm
 ```
-
