@@ -11,12 +11,16 @@ packages:
 - java-17-openjdk-headless
 - maven-openjdk17
 - git
+- bzip2
+- tmux
 runcmd:
 # Disable SSH password authentication
 - [ "sed", "-i.post-install", "-e", "s/PasswordAuthentication no/PasswordAuthentication yes/", "/etc/ssh/sshd_config" ]
 - [ "systemctl", "restart", "sshd" ]
 # Enable sudo without password
 - [ "sed", "-i.post-install", "-e", "s/^%wheel\tALL=(ALL)\tALL/%wheel  ALL=(ALL)       NOPASSWD: ALL/", "/etc/sudoers" ]
+# Run the post-install script
+- [ "/usr/local/bin/post-install.sh" ]
 write_files:
 - path: /etc/neofetch/config.conf
   content: |
@@ -109,6 +113,15 @@ write_files:
     if [ -n "$PS1" ]; then
       neofetch --config /etc/neofetch/config.conf
     fi
+  permissions: '0755'
+- path: /usr/local/bin/post-install.sh
+  content: |
+    #!/bin/bash
+    set -Eeuo pipefail
+    curl -sSfL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+    curl -sSfL https://github.com/redhat-cop/template2helm/releases/download/v0.1.0/linux-amd64-template2helm.bz2 | bunzip2 -c > /usr/local/bin/template2helm
+    chmod 755 /usr/local/bin/template2helm
+    curl -sSfL https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.11.12/openshift-client-linux.tar.gz | tar -zx -C /usr/local/bin oc kubectl
   permissions: '0755'
 groups:
 - lab
