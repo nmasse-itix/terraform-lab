@@ -52,6 +52,9 @@ sudo dnf install libreoffice-base
 * In the **Database field** dropdown list, select **username** and click the left arrow.
 * In the **Database field** dropdown list, select **password** and click the left arrow.
 * In the **Format** tab, enter the dimensions of a credit card (8.56 cm x 5.40 cm).
+
+![Label Dimensions](label-dimensions.png)
+
 * In the **Options** tab, select **Synchronize contents**
 * Click **New Document**
 * Format it according to your liking
